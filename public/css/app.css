@@ -1,0 +1,12 @@
+*, .main{
+    background-color: #252222; 
+    color: white;
+}
+.main .container .encrypt{
+    border-radius: 20px;
+    width: 15rem;
+}
+.main .container .pdf-file{
+    border-radius: 20px;
+    
+}
