@@ -3,10 +3,24 @@
     color: white;
 }
 .main .container .encrypt{
+    
     border-radius: 20px;
     width: 15rem;
 }
-.main .container .pdf-file{
+.main .container .download-encrypted-file{ 
+    border-radius: 20px; 
+}
+
+.main .container .download-encrypted-file-hidden{ 
+    display: none; 
+}
+.main .container .pdf-file, 
+.main .container .password, 
+.main .container .confirm_password{
     border-radius: 20px;
     
+}
+.success-error-status {
+    text-align: center;
+    color: #eee;
 }
