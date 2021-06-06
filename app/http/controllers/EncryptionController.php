@@ -1,7 +1,6 @@
 <?php
 
-    class Encryption{
-        // your variables
+    class Encryption{ 
         private $filename;
         private $encryption_name;
         private $myPassword;
@@ -57,33 +56,6 @@
             }
             catch (\Throwable $error) {
                 echo "An error occurred when trying to encrypt your file";
-            }
-        }
-
-        public function DownloadEncryptedFile() { 
-            $filepath = $this->encryption_name; 
-
-            if (file_exists($filepath)){
-                header("Content-Type: application/download");
-                header ("Content-Disposition: attachment; filename=Encrypted_file.pdf");
-                header("Content-Description: File Transfer"); 
-                header("Content-Length: " . filesize("$filepath"));
-                // $fp = fopen("$filepath", "r");
-                // fpassthru($fp);
-                flush(); // This doesn't really matter.
-
-                $fp = fopen($filepath, "r");
-                while (!feof($fp)) {
-                    echo fread($fp, 65536);
-                    flush(); // This is essential for large downloads
-                } 
-                
-                fclose($fp); 
-
-                return "Thankyou for using pdf encryptor. file ready for download";
-            }
-            else {
-                return "The file seems to have been corrupted during the encryption process. Kindly try again";
             }
         }
     }
