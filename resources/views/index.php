@@ -12,9 +12,13 @@
         <!-- bootstrap icons -->
 		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
 		<script src="https://kit.fontawesome.com/6a9db0427a.js" crossorigin="anonymous"></script>
+
+        <!-- toast css -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+        <!--/ toast css -->
     </head>
     <body>
-        <div class="main">
+        <div class="main pb-5">
             <div class="container pt-5">
                 <h2 class="text-center font-weight-bold pb-2 text-uppercase">encrypt pdf files</h2>
                 <div class="container">
@@ -35,17 +39,30 @@
                         <p class="font-weight-bold success-error-status pt-3" id="success-error-status"></p>
                     </div>
                     <div class="form-group pt-3">
-                        <button type="submit" class="btn btn-secondary encrypt" id="encrypt-file-submit-btn">Encrypt Your File</button>
+                        <button type="submit" class="btn btn-secondary encrypt" id="encrypt-file-submit-btn"><i class="fa fa-lock" aria-hidden="true"></i> Encrypt Your File</button>
                     </div>
 
                     <div class="form-group pt-5"> 
-                        <button type="submit" id="download-encrypted-file" class="btn btn-sm btn-secondary btn-block download-encrypted-file download-encrypted-file-hidden w-100"><i class="fa fa-download" aria-hidden="true"></i> Download Encrypted File</button>
+                        <a type="submit" id="download-encrypted-file" href="" class="btn btn-sm btn-secondary btn-block download-encrypted-file download-encrypted-file-hidden w-100"><i class="fa fa-download" aria-hidden="true"></i> Download Encrypted File</a>
                     </div>
                 </div>
             </div>
         </div>
+
+        <!-- local script -->
         <script src="public/js/app.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js" integrity="sha384-q2kxQ16AaE6UbzuKqyBE9/u/KzioAlnx2maXQHiDX9d4/zp8Ok3f+M7DPm+Ib6IU" crossorigin="anonymous"></script>
+        <!--/ local script  -->
+
+        <!-- bootstrap scripts -->
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js" integrity="sha384-q2kxQ16AaE6UbzuKqyBE9/u/KzioAlnx2maXQHiDX9d4/zp8Ok3f+M7DPm+Ib6IU" crossorigin="anonymous"></script> 
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script> 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.min.js" integrity="sha384-pQQkAEnwaBkjpqZ8RU1fF1AKtTcHJwFl3pblpTlHXybJjHpMYo79HY3hIi4NKxyj" crossorigin="anonymous"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <!--/ bootstrap scripts -->
+
+        <!-- toast script -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+        <!--/ toast script -->
+
     </body>
 </html>
