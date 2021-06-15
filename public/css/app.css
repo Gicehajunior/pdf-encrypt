@@ -24,3 +24,13 @@
     text-align: center;
     color: #eee;
 }
+.toast-message {
+    background-color: transparent;
+    padding: 20px;
+}
+.fa, .fas{
+    background-color: transparent;
+}
+.fa-cross {
+    color: red;
+}
