@@ -8,19 +8,37 @@ const FileEncryptionSuccessErrorStatus = document.getElementById('success-error-
 const DownloadEncryptedFileBtn = document.getElementById('download-encrypted-file');
 
 class EncryptFile { 
+    toast_user(status, time, message) {
+        toastr.options.newestOnTop = true;
+        toastr.options.timeOut = time;
+        toastr.options.extendedTimeOut = 0; 
+        toastr.options.progressBar = true;
+        toastr.options.rtl = false;
+        toastr.options.closeButton = true;
+        toastr.options.closeMethod = 'fadeOut';
+        toastr.options.closeDuration = 300;
+        toastr.options.closeEasing = 'swing';
+        toastr.options.preventDuplicates = true;
+
+        toastr.remove();
+
+        if (status == 'info'){
+            toastr.info(message);
+        }
+        else if (status == 'success'){
+            toastr.success(message);
+        }
+        else if (status == 'warning') {
+            toastr.warning(message);
+        }
+        else if (status == 'error') {
+            toastr.error(message);
+        }
+    }
+
     fileErrorCheck() {
         if (password.value == '' || confirm_password.value == '' || password.value !== confirm_password.value){ 
-            toastr.options.newestOnTop = true;
-            toastr.options.timeOut = 0;
-            toastr.options.extendedTimeOut = 0; 
-            toastr.options.progressBar = true;
-            toastr.options.rtl = false;
-            toastr.options.closeButton = true;
-            toastr.options.closeMethod = 'fadeOut';
-            toastr.options.closeDuration = 300;
-            toastr.options.closeEasing = 'swing';
-            toastr.options.preventDuplicates = true;
-            toastr.warning('Kindly Fill in all the fields. Passwords and File Fields cannot be null, Ensure that the password rhymes correctly!');
+            this.toast_user('warning', 8000, 'Kindly Fill in all the fields. Passwords and File Fields cannot be null, Ensure that the password rhymes correctly!')
         }
         else {
             return false;
@@ -35,11 +53,13 @@ class EncryptFile {
                 FileEncryptionSuccessErrorStatus.removeChild(FileEncryptionSuccessErrorStatus.childNodes[0]);
             }  
             if(fileInput.files.length > 0) {
-                FileSelectStatus.innerHTML = `You selected file: ${fileInput.files[0].name}. The file is ready to encrypt`;
+                FileSelectStatus.innerHTML = `You selected file: ${fileInput.files[0].name}. The file is ready to encrypt <i class="fa fa-check-circle" aria-hidden="true"></i>`;
+                this.toast_user('info', 8000, `You selected file: ${fileInput.files[0].name}. The file is ready to encrypt <i class="fa fa-check-circle" aria-hidden="true"></i>`);
                 this.InitializeFileEncrypt();
             }
             else {
-                FileSelectStatus.innerHTML = `No file was selected. Kindly select a file`;
+                FileSelectStatus.innerHTML = `<i class="fas fa-cross"></i> No file was selected. Kindly select a file`;
+                this.toast_user('warning', 8000, `No file was selected. Kindly select a file to encrypt! <i class="fas fa-cross"></i> `);
             }
         });
     }
@@ -69,24 +89,30 @@ class EncryptFile {
         });
     }
 
+    download_file () {
+        DownloadEncryptedFileBtn.addEventListener('click', event => {
+            this.toast_user('warning', 8000, `Thankyou for using pdf-encryptor. The File got downloaded Successfully. <i class="fa fa-check-circle" aria-hidden="true"></i>`); 
+        });
+    }
+
     process_to_server(action, urlParams) { 
         let xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
                 
                 if (this.responseText.includes("An error occurred when trying to encrypt your file")) { 
-                    FileEncryptionSuccessErrorStatus.innerHTML = `The system refused to encrypt the file. Kindly ensure your file is correct!` 
+                    FileEncryptionSuccessErrorStatus.innerHTML = `<i class="fas fa-cross"></i> The system refused to encrypt the file. Kindly ensure your file is correct!` 
                     EncryptSubmitBtn.innerHTML = `<i class="fa fa-lock" aria-hidden="true"></i> Encrypt Your File`;
                 }
                 else if (this.responseText.includes(".pdf")) { 
                     localStorage.setItem('encryptedfilepath', this.responseText);  
                     DownloadEncryptedFileBtn.classList.remove('download-encrypted-file-hidden');
                     DownloadEncryptedFileBtn.href = `./public/files/${this.responseText}`;  
-                    FileEncryptionSuccessErrorStatus.innerHTML = `The File got encrypted Successfully. To download click the download button below this page.`;
+                    FileEncryptionSuccessErrorStatus.innerHTML = `<i class="fa fa-check-circle" aria-hidden="true"></i> The File got encrypted Successfully. To download click the download button below this page.`;
                     EncryptSubmitBtn.innerHTML = `<i class="fa fa-lock" aria-hidden="true"></i> Encrypt Your File`;
                 }
                 else if (this.responseText.includes("trouble encrypting the document")) { 
-                    FileEncryptionSuccessErrorStatus.innerHTML = `The system refused to encrypt the file. Kindly ensure your file is correct!`; 
+                    FileEncryptionSuccessErrorStatus.innerHTML = `<i class="fas fa-cross"></i> The system refused to encrypt the file. Kindly ensure your file is correct!`; 
                     EncryptSubmitBtn.innerHTML = `<i class="fa fa-lock" aria-hidden="true"></i> Encrypt Your File`;
                 }
                 else if (this.responseText.includes("Thankyou for using pdf encryptor. file ready for download")) { 
@@ -94,11 +120,11 @@ class EncryptFile {
                     EncryptSubmitBtn.innerHTML = `<i class="fa fa-lock" aria-hidden="true"></i> Encrypt Your File`;
                 }
                 else if (this.responseText.includes("The file seems to have been corrupted during the encryption process")) { 
-                    FileEncryptionSuccessErrorStatus.innerHTML = `The file got an error during server processing. Kindly try again!`;
+                    FileEncryptionSuccessErrorStatus.innerHTML = `<i class="fas fa-cross"></i> The file got an error during server processing. Kindly try again!`;
                     EncryptSubmitBtn.innerHTML = `<i class="fa fa-lock" aria-hidden="true"></i> Encrypt Your File`;
                 }
                 else{
-                    FileEncryptionSuccessErrorStatus.innerHTML = "Oops! Error, Kindly Try Again..."; 
+                    FileEncryptionSuccessErrorStatus.innerHTML = `<i class="fas fa-cross"></i> Oops! Error, Kindly Try Again...`; 
                 }
             }
         };
@@ -112,5 +138,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const file = new EncryptFile();
 
     file.Encrypt();
+    file.download_file ();
 });
 
