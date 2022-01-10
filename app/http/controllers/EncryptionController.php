@@ -1,14 +1,14 @@
 <?php
 
     class Encryption{ 
-        private $filename;
-        private $encryption_name;
+        private $unecrypted_filename;
+        private $file_name;
         private $myPassword;
         private $userPassword;
 
-        public function __construct($filename, $tmp_name, $Encrypted_file_path, $myPassword, $userPassword) {
-            $this->filename = $filename; 
-            $this->encryption_name = $Encrypted_file_path;
+        public function __construct($unecrypted_filename, $tmp_name, $file_name, $myPassword, $userPassword) {
+            $this->unecrypted_filename = $unecrypted_filename; 
+            $this->file_name = $file_name;
             $this->myPassword = $myPassword;
             $this->userPassword = $userPassword;
         }
@@ -23,7 +23,7 @@
             $pdf = new setasign\FpdiProtection\FpdiProtection(); 
 
             try {
-                $pageCount = $pdf->setSourceFile($this->filename);
+                $pageCount = $pdf->setSourceFile($this->unecrypted_filename);
 
                 for ($pageNo = 1; $pageNo <= $pageCount; $pageNo++) {
                     $tpl = $pdf->importPage($pageNo);
@@ -38,16 +38,14 @@
                     $this->myPassword
                 );
 
-                $output = $pdf->Output($this->filename.'-'.$this->encryption_name, 'F'); 
-                $filepath = $this->filename.'-'.$this->encryption_name;
+                $output = $pdf->Output($this->unecrypted_filename, 'F'); 
+                $output_file_name = $this->file_name; 
 
                 //Close and output PDF document to the browser 
-                if(true){
-                    
-
+                if(true){ 
                     $success = "Done Document Encryption";
 
-                    return $filepath; 
+                    return $output_file_name; 
                 }
                 else{
                     $error = 'trouble encrypting the document';

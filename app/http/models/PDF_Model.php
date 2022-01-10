@@ -11,13 +11,17 @@ $passwords = json_decode($_POST['passwords'], true);
 $encrypt_password = $passwords['confirmPassword'];
 $confirmPassword = $passwords['confirmPassword'];
 
-$newFileName = uniqid('', true).".pdf"; 
+$newFileName = md5(uniqid('', true));
 
-$fileDestination = '../../../public/files/'.$newFileName;
-move_uploaded_file($file_tmp_name, $fileDestination);
+$newFileName = substr($newFileName, -5) . ".pdf";
+
+$unecrypted_filename = '../../../public/files/'.$newFileName;
+move_uploaded_file($file_tmp_name, $unecrypted_filename);
+
+$actual_file_name = $newFileName;
 
 
-$encryption = new Encryption($fileDestination, $file_tmp_name, $filename, $encrypt_password, $confirmPassword);
+$encryption = new Encryption($unecrypted_filename, $file_tmp_name, $actual_file_name, $encrypt_password, $confirmPassword);
 
 $encrypt = $encryption->encrypt();
 

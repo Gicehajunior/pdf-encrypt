@@ -1,0 +1,21 @@
+{
+    "name": "PDF PROTECT",
+    "short_name": "PDF PROTECT",
+    "start_url": ".",
+    "background_color": "#fff",
+    "theme_color": "#fff",
+    "display": "standalone",
+    "icons": [
+        {
+            "src": "public/logo/logo.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "public/logo/logo.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        }
+        
+    ]
+}
